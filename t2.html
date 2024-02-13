@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Circle Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #ffffff; /* Set the background color to white */
+        }
+    </style>
+    <script src="https://threejs.org/build/three.js"></script>
+</head>
+<body>
+    <script>
+        // Set up scene, camera, and renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Create a circle geometry
+        const radius = 5;
+        const segments = 64;
+        const circleGeometry = new THREE.CircleGeometry(radius, segments);
+
+        // Create a material with color
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide });
+
+        // Create a mesh with geometry and material
+        const circleMesh = new THREE.Mesh(circleGeometry, material);
+
+        // Add the circle mesh to the scene
+        scene.add(circleMesh);
+
+        // Set the camera position
+        camera.position.z = 10;
+
+        // Animation loop
+        const animate = function () {
+            requestAnimationFrame(animate);
+
+            // Rotate the circle
+            circleMesh.rotation.x += 0.01;
+            circleMesh.rotation.y += 0.01;
+
+            renderer.render(scene, camera);
+        };
+
+        animate();
+    </script>
+</body>
+</html>
